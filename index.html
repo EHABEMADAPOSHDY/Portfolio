@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" id="htmlElement">
 
@@ -412,39 +413,55 @@
       border-radius: var(--radius-sm);
     }
 
-    /* Hamburger Menu Toggle */
+    /* Hamburger Menu Toggle - center spans absolutely to avoid distortion on device scaling */
     .menu-toggle {
       display: none;
-      flex-direction: column;
+      position: relative;
+      width: 44px;
+      height: 44px;
       background: none;
       border: none;
       cursor: pointer;
-      gap: var(--spacing-xs);
-      padding: var(--spacing-md);
+      padding: 0;
       z-index: var(--z-sticky);
+      align-items: center;
+      justify-content: center;
     }
 
     .menu-toggle span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
       display: block;
       width: 24px;
       height: 2px;
       background: var(--color-primary);
       border-radius: var(--radius-full);
-      transition: all var(--transition-base);
+      transition: transform var(--transition-base), opacity var(--transition-base), background var(--transition-base);
       transform-origin: center;
+      /* default stacked positions using percentage transforms so they scale consistently */
+      transform: translate(-50%, -8px);
+    }
+
+    .menu-toggle span:nth-child(2) {
+      transform: translate(-50%, 0);
+    }
+
+    .menu-toggle span:nth-child(3) {
+      transform: translate(-50%, 8px);
     }
 
     .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
+      transform: translate(-50%, -50%) rotate(45deg);
     }
 
     .menu-toggle.active span:nth-child(2) {
       opacity: 0;
-      transform: translateX(-10px);
+      transform: translate(-50%, -50%) scaleX(0);
     }
 
     .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
+      transform: translate(-50%, -50%) rotate(-45deg);
     }
 
     /* Theme & Language Toggles */
